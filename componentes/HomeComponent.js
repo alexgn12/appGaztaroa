@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import { ImageBackground, ScrollView, View, StyleSheet } from 'react-native';
 import { Card, Text } from 'react-native-paper';
 import { EXCURSIONES } from '../comun/excursiones';
 import { CABECERAS } from '../comun/cabeceras';
@@ -12,15 +12,12 @@ function RenderItem({ item }) {
 
   return (
     <Card style={styles.card}>
-      <Card.Title
-        title={item.nombre}
-        titleStyle={styles.titulo}
-        style={styles.cardTitle}
-      />
-      <Card.Cover
+      <ImageBackground
         source={require('./imagenes/40Años.png')}
         style={styles.image}
-      />
+      >
+        <Text style={styles.titulo}>{item.nombre}</Text>
+      </ImageBackground>
       <Card.Content>
         <Text style={styles.descripcion}>
           {item.descripcion}
@@ -56,17 +53,18 @@ const styles = StyleSheet.create({
     margin: 8,
   },
   image: {
-    marginHorizontal: 0,
+    height: 200,
+    justifyContent: 'flex-start',
   },
   descripcion: {
     marginTop: 20,
     marginBottom: 20,
   },
   titulo: {
-    textAlign: 'center',
-  },
-  cardTitle: {
-    alignItems: 'center',
+    color: 'chocolate',
+    fontSize: 24,
+    fontWeight: 'bold',
+    padding: 10,
   },
 });
 

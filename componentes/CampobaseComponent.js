@@ -8,6 +8,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Home from "./HomeComponent";
+import QuienesSomos from "./QuienesSomosComponent";
+import Contacto from "./ContactoComponent";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -75,6 +77,44 @@ class Campobase extends Component {
       </Stack.Navigator>
     );
   };
+  QuienesSomosNavegador = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName="QuienesSomos"
+        screenOptions={{
+          headerTintColor: "#fff",
+          headerStyle: { backgroundColor: "#015afc" },
+          headerTitleStyle: { color: "#fff" },
+        }}
+      >
+        <Stack.Screen
+          name="QuienesSomos"
+          component={QuienesSomos}
+          options={{ title: "Quiénes somos" }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
+  ContactoNavegador = () => {
+    return (
+      <Stack.Navigator
+        initialRouteName="Contacto"
+        screenOptions={{
+          headerTintColor: "#fff",
+          headerStyle: { backgroundColor: "#015afc" },
+          headerTitleStyle: { color: "#fff" },
+        }}
+      >
+        <Stack.Screen
+          name="Contacto"
+          component={Contacto}
+          options={{ title: "Contacto" }}
+        />
+      </Stack.Navigator>
+    );
+  };
+
   DrawerNavegador = () => {
     return (
       <Drawer.Navigator
@@ -87,7 +127,9 @@ class Campobase extends Component {
         }}
       >
         <Drawer.Screen name="Campo base" component={this.HomeNavegador} />
-        <Drawer.Screen name="Calendario" component={this.CalendarioNavegador} />
+        <Drawer.Screen name="Quiénes somos" component={this.QuienesSomosNavegador} />
+        <Drawer.Screen name="CalendarioDrawer" options={{ title: "Calendario" }} component={this.CalendarioNavegador} />
+        <Drawer.Screen name="ContactoDrawer" options={{ title: "Contacto" }} component={this.ContactoNavegador} />
       </Drawer.Navigator>
     );
   };

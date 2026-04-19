@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FlatList, Image, ScrollView, StyleSheet } from 'react-native';
 import { Card, Divider, List, Text } from 'react-native-paper';
 import { ACTIVIDADES } from '../comun/actividades';
+import { baseUrl } from '../comun/comun';
 
 function Historia() {
   return (
@@ -59,7 +60,7 @@ class QuienesSomos extends Component {
                 descriptionNumberOfLines={10}
                 left={() => (
                   <Image
-                    source={require('./imagenes/40Años.png')}
+                    source={{ uri: baseUrl + item.imagen }}
                     style={styles.itemImagen}
                   />
                 )}

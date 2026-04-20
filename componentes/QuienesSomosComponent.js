@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { FlatList, Image, ScrollView, StyleSheet } from 'react-native';
 import { Card, Divider, List, Text } from 'react-native-paper';
-import { ACTIVIDADES } from '../comun/actividades';
 import { baseUrl } from '../comun/comun';
+import { connect } from 'react-redux';
 
 function Historia() {
   return (
@@ -31,14 +31,11 @@ function Historia() {
   );
 }
 
-class QuienesSomos extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      actividades: ACTIVIDADES,
-    };
-  }
+const mapStateToProps = (state) => ({
+  actividades: state.actividades,
+});
 
+class QuienesSomos extends Component {
   render() {
     return (
       <ScrollView>
@@ -50,7 +47,7 @@ class QuienesSomos extends Component {
             style={styles.cardTitle}
           />
           <FlatList
-            data={this.state.actividades}
+            data={this.props.actividades.actividades}
             keyExtractor={(item) => item.id.toString()}
             ItemSeparatorComponent={() => <Divider />}
             renderItem={({ item }) => (
@@ -94,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default QuienesSomos;
+export default connect(mapStateToProps)(QuienesSomos);

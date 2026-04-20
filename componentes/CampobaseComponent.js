@@ -1,8 +1,9 @@
 import { Component } from "react";
 import Calendario from "./CalendarioComponent";
 import DetalleExcursion from "./DetalleExcursionComponent";
-import { EXCURSIONES } from "../comun/excursiones";
 import { Platform, View, Pressable, Image, StyleSheet } from "react-native";
+import { connect } from "react-redux";
+import { fetchExcursiones, fetchComentarios, fetchCabeceras, fetchActividades } from "../redux/ActionCreators";
 import { Text } from "react-native-paper";
 import Constants from "expo-constants";
 import { NavigationContainer, DrawerActions } from "@react-navigation/native";
@@ -46,12 +47,19 @@ function CustomDrawerContent(props) {
   );
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  fetchExcursiones: () => dispatch(fetchExcursiones()),
+  fetchComentarios: () => dispatch(fetchComentarios()),
+  fetchCabeceras: () => dispatch(fetchCabeceras()),
+  fetchActividades: () => dispatch(fetchActividades()),
+});
+
 class Campobase extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      excursiones: EXCURSIONES,
-    };
+  componentDidMount() {
+    this.props.fetchExcursiones();
+    this.props.fetchComentarios();
+    this.props.fetchCabeceras();
+    this.props.fetchActividades();
   }
 
   HomeNavegador = () => {
@@ -88,26 +96,20 @@ class Campobase extends Component {
       >
         <Stack.Screen
           name="Calendario"
+          component={Calendario}
           options={({ navigation }) => ({
             title: "Calendario Gaztaroa",
             headerLeft: () => <BotonMenu navigation={navigation} />,
           })}
-        >
-          {(props) => (
-            <Calendario {...props} excursiones={this.state.excursiones} />
-          )}
-        </Stack.Screen>
+        />
         <Stack.Screen
           name="DetalleExcursion"
+          component={DetalleExcursion}
           options={{
             title: "Detalle Excursión",
             headerBackTitle: "Calendario",
           }}
-        >
-          {(props) => (
-            <DetalleExcursion {...props} excursiones={this.state.excursiones} />
-          )}
-        </Stack.Screen>
+        />
       </Stack.Navigator>
     );
   };
@@ -246,4 +248,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Campobase;
+export default connect(null, mapDispatchToProps)(Campobase);
